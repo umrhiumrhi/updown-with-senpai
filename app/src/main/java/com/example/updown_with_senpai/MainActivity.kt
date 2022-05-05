@@ -29,7 +29,7 @@ class MainActivity : AppCompatActivity() {
                 if (result.resultCode == RESULT_OK) {
                     val score = result.data?.getIntExtra("score", -1)
                     val sharedPreferences = getSharedPreferences("gameSpf", Context.MODE_PRIVATE)
-                    val currentHigh = sharedPreferences.getInt("high_score", -1)
+                    val currentHigh = sharedPreferences.getInt("high_score", 999999)
 
                     if (currentHigh > score!!) {
                         sharedPreferences.edit {
@@ -37,7 +37,7 @@ class MainActivity : AppCompatActivity() {
                             commit()
                         }
                     }
-                    val record = sharedPreferences.getInt("high_score", -1)
+                    val record = sharedPreferences.getInt("high_score", 999999)
                     showHighScore(record)
                 }
             }
@@ -50,14 +50,14 @@ class MainActivity : AppCompatActivity() {
 
     private fun initSharedPreferences() {
         val sharedPreferences = getSharedPreferences("gameSpf", Context.MODE_PRIVATE)
-        val record = sharedPreferences.getInt("high_score", -1)
+        val record = sharedPreferences.getInt("high_score", 999999)
         showHighScore(record)
     }
 
     private fun showHighScore(record : Int) {
         binding.highScoreTextView.apply {
-            text = when {
-                record < 0 -> "기록 없음"
+            text = when (record) {
+                999999 -> "기록 없음"
                 else -> "최고 점수 : $record"
             }
         }
