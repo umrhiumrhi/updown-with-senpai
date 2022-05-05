@@ -1,5 +1,6 @@
 package com.example.updown_with_senpai
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.inputmethod.EditorInfo
@@ -17,6 +18,7 @@ class GameActivity : AppCompatActivity() {
     private var time = 4
     private var timerTask : Timer? = null
     private var answer : Int = 0
+    private var count = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -62,11 +64,22 @@ class GameActivity : AppCompatActivity() {
         val userAnswer= binding.answerInputEditText.text.toString().toInt()
         binding.chatBoxTextView.apply {
             text = when {
-                userAnswer == answer -> "정확해"
+                userAnswer == answer -> {
+                    "정확해"
+                }
                 userAnswer > answer -> "너무 크다"
                 else -> "너무 작다"
             }
         }
 
+        if (userAnswer == answer) {
+            val intent = Intent(this, MainActivity::class.java).apply {
+                putExtra("score", count)
+            }
+            setResult(RESULT_OK, intent)
+            finish()
+        } else {
+            count += 1
+        }
     }
 }
