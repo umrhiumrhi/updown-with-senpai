@@ -19,6 +19,7 @@ class GameActivity : AppCompatActivity() {
     private var timerTask : Timer? = null
     private var answer : Int = 0
     private var count = 0
+    private var pressedTime : Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -27,6 +28,15 @@ class GameActivity : AppCompatActivity() {
         initViews()
         setAnswer()
         startTimer()
+    }
+
+    override fun onBackPressed() {
+        if (System.currentTimeMillis() - pressedTime >= 2000) {
+            pressedTime = System.currentTimeMillis()
+            Toast.makeText(this, "한 번 더 누르면 메인화면으로 갑니다.", Toast.LENGTH_SHORT).show()
+        } else {
+            finish()
+        }
     }
 
     private fun initViews() {
