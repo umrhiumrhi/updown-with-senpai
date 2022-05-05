@@ -5,7 +5,6 @@ import android.os.Bundle
 import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import com.example.updown_with_senpai.databinding.ActivityGameBinding
-import com.example.updown_with_senpai.databinding.ActivityMainBinding
 import java.util.*
 import kotlin.concurrent.timer
 
